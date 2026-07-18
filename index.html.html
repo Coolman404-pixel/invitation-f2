@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invitation — Promotion BAC F2 2026</title>
+
+<style>
+/* ============================================ */
+/* PALETTE — reprise de l'affiche (bleu-gris / noir) */
+/* ============================================ */
+:root {
+  --fond-clair: #c7ccd9;
+  --fond-fonce: #e2e7ff;
+  --noir: #111318;
+  --texte: #1c1e24;
+  --papier: #ffffff;
+  --gris-doux: #4a4e5c;
+  --ombre: rgba(0, 0, 0, 0.25);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: linear-gradient(135deg, var(--fond-fonce), var(--fond-clair));
+  color: var(--texte);
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ============================================ */
+/* ECRAN DE CHARGEMENT — s'affiche par-dessus 3s puis fondu */
+/* ============================================ */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.2s ease;
+}
+
+#loader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* METS TON ANIMATION LOTTIE (After Effects) ICI DEDANS */
+#lottie-container {
+  width: 180px;
+  max-width: 70vw;
+}
+
+/* ============================================ */
+/* PAGE PRINCIPALE — mise en page "feuille A4"   */
+/* ============================================ */
+#page-message {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+/* La "feuille" — proportions A4 (ratio 1 / 1.414) */
+.paper {
+  background: var(--papier);
+  width: 100%;
+  max-width: 794px;   /* ~ largeur A4 en pixels (96dpi) */
+  min-height: 1123px; /* ~ hauteur A4 en pixels (96dpi) */
+  padding: 70px 60px;
+  box-shadow: 0 20px 60px var(--ombre);
+  border-radius: 30px;
+}
+
+.paper-header {
+  text-align: right;
+  margin-bottom: 40px;
+}
+
+.paper-header p {
+  font-size: 15px;
+  color: var(--gris-doux);
+}
+
+.objet {
+  font-weight: bold;
+  margin-bottom: 36px;
+  font-size: clamp(15px, 1.8vw, 17px);
+}
+
+.message-content p {
+  font-size: clamp(15px, 1.8vw, 17px);
+  line-height: 1.9;
+  margin-bottom: 22px;
+  text-align: justify;
+  color: var(--texte);
+}
+
+.salutation {
+  font-weight: bold;
+  margin-bottom: 26px !important;
+}
+
+.programme {
+  margin: 28px 0;
+}
+
+.programme p.intro {
+  font-weight: bold;
+  margin-bottom: 10px !important;
+  text-align: left !important;
+}
+
+.programme ul {
+  list-style: none;
+  padding-left: 4px;
+}
+
+.programme li {
+  font-size: clamp(15px, 1.8vw, 17px);
+  line-height: 1.9;
+  margin-bottom: 6px;
+  padding-left: 18px;
+  position: relative;
+}
+
+.programme li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--gris-doux);
+}
+
+.details {
+  border-left: 3px solid var(--noir);
+  padding-left: 20px;
+  margin: 32px 0;
+}
+
+.details p {
+  margin-bottom: 8px !important;
+  font-size: clamp(15px, 1.8vw, 17px);
+  text-align: left !important;
+  color: var(--gris-doux);
+}
+
+.signature {
+  margin-top: 50px;
+  text-align: right;
+}
+
+.signature p {
+  text-align: right !important;
+  font-weight: bold;
+  margin-bottom: 0 !important;
+}
+
+/* ============================================ */
+/* ANIMATION — apparition progressive du texte   */
+/* ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================ */
+/* RESPONSIVE — mobile (Android) et PC           */
+/* ============================================ */
+@media (max-width: 700px) {
+  #page-message {
+    padding: 24px 12px;
+  }
+  .paper {
+    padding: 36px 24px;
+    min-height: auto;
+  }
+  .paper-header {
+    margin-bottom: 28px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .paper {
+    padding: 90px 90px;
+  }
+}
+</style>
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- ÉCRAN DE CHARGEMENT (affiché 3s, puis fondu)  -->
+  <!-- ============================================ -->
+  <div id="loader">
+    <!-- METS TON ANIMATION LOTTIE (fichier .json exporté d'After Effects) ICI -->
+    <div id="lottie-container"></div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- PAGE PRINCIPALE — LA LETTRE QUE LES PROFS LISENT -->
+  <!-- ============================================ -->
+  <section id="page-message">
+    <div class="paper">
+
+      <div class="paper-header reveal">
+        <p>Cotonou, le 17 juillet 2026</p>
+      </div>
+
+      <p class="objet reveal">
+        Objet : Invitation à la cérémonie de remerciement de la Promotion BAC F2 2026
+      </p>
+
+      <div class="message-content">
+
+        <p class="reveal salutation">Chers Professeurs,</p>
+
+        <p class="reveal">
+          Pendant ces trois dernières années, vous avez été pour nous bien
+          plus que des enseignants. Vous avez été des guides, des conseillers
+          et des mentors qui ont toujours répondu présents lorsque nous en
+          avions le plus besoin.
+        </p>
+
+        <p class="reveal">
+          Votre dévouement exceptionnel à votre tâche d'éducateurs nous a
+          permis aujourd'hui de décrocher le BACCALAURÉAT.
+        </p>
+
+        <p class="reveal">
+          L'année prochaine, la promotion du BAC 2026 de la F2 ne foulera
+          plus les couloirs du Lycée Technique et Professionnel de
+          Kpondéhou. Et nous refusons d'écrire un nouveau chapitre de notre
+          vie sans vous avoir dit, comme il se doit, à quel point vous avez
+          compté pour l'obtention de notre diplôme.
+        </p>
+
+        <p class="reveal">
+          Ainsi, pour vous témoigner de notre infinie reconnaissance, nous
+          avons l'immense privilège de vous inviter à la cérémonie de
+          remerciement organisée par la promotion du BAC F2 2026 en votre
+          honneur, pour le rêve que vous nous avez permis de réaliser.
+        </p>
+
+        <div class="programme reveal">
+          <p class="intro">Au programme :</p>
+          <ul>
+            <li>Repas convivial</li>
+            <li>Discours de remerciement</li>
+            <li>Remise de cadeaux</li>
+          </ul>
+        </div>
+
+        <div class="details reveal">
+          <p>📅 Date : Samedi 8 août 2026 à 14h précises</p>
+          <p>📍 Lieu : Quartier Agblangandan, dernière maison à gauche dans
+             la voie faisant face à la gendarmerie d'Agblangandan</p>
+        </div>
+
+        <div class="signature reveal">
+          <p>La Promotion du BAC F2 2026</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <script>
+/* ============================================ */
+/* 1. ÉCRAN DE CHARGEMENT — animation Lottie + fondu après 3s */
+/* ============================================ */
+
+const loader = document.getElementById('loader');
+
+// Remplace 'assets/invitation-ouverture.json' par le chemin exact
+// de ton fichier exporté avec Bodymovin depuis After Effects.
+// Mets le fichier .json dans un dossier "assets" à côté de ce fichier HTML.
+lottie.loadAnimation({
+  container: document.getElementById('lottie-container'),
+  renderer: 'svg',
+  loop: true,        // le loader boucle tant qu'il est affiché
+  autoplay: true,
+  path: 'assets/invitation-ouverture.json'
+});
+
+// Après 3 secondes : fondu de sortie du loader
+setTimeout(() => {
+  loader.classList.add('fade-out');
+  setTimeout(() => {
+    loader.style.display = 'none';
+  }, 1200);
+}, 5000);
+
+
+/* ============================================ */
+/* 2. APPARITION PROGRESSIVE DU TEXTE            */
+/* ============================================ */
+
+const revealElements = document.querySelectorAll('.reveal');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 180);
+      observer.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.15
+});
+
+revealElements.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
